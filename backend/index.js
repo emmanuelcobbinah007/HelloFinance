@@ -14,7 +14,7 @@ app.get('/expenses', async(req, res) => {
     
     db.connect( function(err) {
         if (err) throw err;
-        db.query(sqlCall, (err, result) => {
+        db.query(sqlCall, async(err, result) => {
             if (err) throw err;
             res.json( {data : result} )
         })
@@ -28,6 +28,13 @@ app.post('/expenses', async(req, res) => {
 
     db.connect( function (err) {
         if (err) throw err;
+
+        db.query(sqlCall, async(req,res) => {
+            if (err) throw err;
+
+            console.log('1 record inserted');
+            return res.json({message: 'expense successfully recorded'});
+        })
     })
 })
 
